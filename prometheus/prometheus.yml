@@ -2,8 +2,12 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
+  # Scrape node exporter (CPU, RAM, disk, dll)
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['node-exporter:9100']
 
-  # Tambahkan exporter lain jika ingin monitoring Airflow lebih detail
+  # Scrape Airflow via statsd-exporter
+  - job_name: 'airflow'
+    static_configs:
+      - targets: ['statsd-exporter:9102']

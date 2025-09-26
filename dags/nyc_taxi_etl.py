@@ -12,7 +12,7 @@ with DAG(
     dag_id="nyc_taxi_etl",
     default_args=default_args,
     start_date=datetime(2025, 1, 1),
-    schedule="@daily",
+    schedule="@monthly",
     catchup=False,
 ) as dag:
 
