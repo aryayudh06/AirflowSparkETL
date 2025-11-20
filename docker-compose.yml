@@ -252,8 +252,10 @@ services:
 
   # Spark services
   spark-master:
-    image: apache/spark:3.5.7
-    container_name: spark-master
+    image: apache/spark:3.5.6
+    container_name: spark-master-airflow
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.master.Master
     environment:
       - SPARK_MODE=master
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
@@ -262,21 +264,23 @@ services:
       - "8081:8080"
     volumes:
       - ./data:/opt/airflow/data
-      - ./data:/opt/bitnami/spark/data
     networks:
       - default
 
   spark-worker:
-    image: apache/spark:3.5.7
-    container_name: spark-worker
+    image: apache/spark:3.5.6
+    container_name: spark-worker-airflow
+    command: >
+      /opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=6
+      - SPARK_WORKER_MEMORY=6g
     depends_on:
       - spark-master
     volumes:
       - ./data:/opt/airflow/data
-      - ./data:/opt/bitnami/spark/data
     networks:
       - default
 
