@@ -5,7 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends openjdk-17-jdk wget procps
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://dlcdn.apache.org/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz && \
+RUN wget https://archive.apache.org/dist/spark/spark-3.5.6/spark-3.5.6-bin-hadoop3.tgz && \
     tar -xzf spark-3.5.6-bin-hadoop3.tgz -C /opt/ && \
     ln -s /opt/spark-3.5.6-bin-hadoop3 /opt/spark && \
     rm spark-3.5.6-bin-hadoop3.tgz

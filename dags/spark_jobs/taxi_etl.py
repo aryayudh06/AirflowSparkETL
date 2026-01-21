@@ -17,7 +17,7 @@ def parse_mongo_output(output_uri):
     if not output_uri.startswith("mongodb://"):
         raise ValueError("Output must start with mongodb://")
 
-    # Pisahkan host dari path database.collection
+    # Get host from URI
     try:
         base_uri, path = output_uri.rsplit("/", 1)
         db_name, collection_name = path.split(".", 1)
